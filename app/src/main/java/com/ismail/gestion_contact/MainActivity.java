@@ -180,6 +180,14 @@ public class MainActivity extends AppCompatActivity implements ContactRecyclerVi
                 return false;
             }
         });
+        searchView.setOnCloseListener(new SearchView.OnCloseListener() {
+            @Override
+            public boolean onClose() {
+                models.clear();
+                showData();
+                return false;
+            }
+        });
 
         return super.onCreateOptionsMenu(menu);
     }
