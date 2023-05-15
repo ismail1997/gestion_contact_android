@@ -44,7 +44,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="60dp"
-            android:layout_marginTop="50dp"
+            android:layout_marginTop="30dp"
             android:orientation="horizontal">
 
 
@@ -54,13 +54,21 @@
                 android:padding="10dp"
                 android:layout_height="match_parent"
                 android:text="@string/name" />-->
-            <EditText
-                android:id="@+id/name_contact_edittext"
-                android:background="@drawable/style_edittext"
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/filledTextField"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 android:layout_width="match_parent"
-                android:paddingLeft="3dp"
-                android:hint="Contact Name"
-                android:layout_height="match_parent" />
+                android:layout_height="wrap_content"
+                android:hint="Enter Name">
+
+                <!--this is the actual edit text which takes the input-->
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/name_contact_edittext"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+
+            </com.google.android.material.textfield.TextInputLayout>
         </LinearLayout>
 
         <LinearLayout
@@ -75,14 +83,19 @@
                 android:padding="10dp"
                 android:layout_height="match_parent"
                 android:text="Email   :" />-->
-
-            <EditText
-                android:id="@+id/email_contact_edittext"
-                android:background="@drawable/style_edittext"
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/filledTextField2"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 android:layout_width="match_parent"
-                android:paddingLeft="3dp"
-                android:hint="Contact Email"
-                android:layout_height="match_parent" />
+                android:layout_height="wrap_content"
+                android:hint="Enter Email">
+
+            <!--this is the actual edit text which takes the input-->
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/email_contact_edittext"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+            </com.google.android.material.textfield.TextInputLayout>
         </LinearLayout>
         <LinearLayout
             android:layout_width="match_parent"
@@ -96,14 +109,20 @@
                 android:padding="10dp"
                 android:layout_height="match_parent"
                 android:text="Phone  :" />-->
-
-            <EditText
-                android:id="@+id/phone_contact_edittext"
-                android:background="@drawable/style_edittext"
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/filledTextField3"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 android:layout_width="match_parent"
-                android:paddingLeft="3dp"
-                android:hint="Contact Phone"
-                android:layout_height="match_parent" />
+                android:layout_height="wrap_content"
+                android:hint="Enter Phone">
+
+                <!--this is the actual edit text which takes the input-->
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/phone_contact_edittext"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+            </com.google.android.material.textfield.TextInputLayout>
+
         </LinearLayout>
         <LinearLayout
             android:layout_width="match_parent"
@@ -117,14 +136,20 @@
                 android:padding="10dp"
                 android:layout_height="match_parent"
                 android:text="Service:" />-->
-
-            <EditText
-                android:id="@+id/service_contact_edittext"
-                android:background="@drawable/style_edittext"
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/filledTextField4"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 android:layout_width="match_parent"
-                android:paddingLeft="3dp"
-                android:hint="Contact Service"
-                android:layout_height="match_parent" />
+                android:layout_height="wrap_content"
+                android:hint="Enter Phone">
+
+                <!--this is the actual edit text which takes the input-->
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/service_contact_edittext"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+            </com.google.android.material.textfield.TextInputLayout>
+
         </LinearLayout>
 
         <Button
