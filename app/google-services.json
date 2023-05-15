@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "326660317845",
+    "project_id": "gestion-contact-3eb4e",
+    "storage_bucket": "gestion-contact-3eb4e.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:326660317845:android:888e0eb7769c3071be719c",
+        "android_client_info": {
+          "package_name": "com.ismail.gestion_contact"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "326660317845-j1tqt6l40mo0ot2fnj2aeagi4rchqkpd.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCBvpr5Krf73lX8PNR9uCI7AvUUwe57NMk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "326660317845-j1tqt6l40mo0ot2fnj2aeagi4rchqkpd.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
