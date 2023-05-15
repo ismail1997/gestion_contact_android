@@ -2,6 +2,7 @@ package com.ismail.gestion_contact;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.view.MenuItemCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -9,6 +10,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 
 import android.app.ProgressDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -268,7 +270,26 @@ public class MainActivity extends AppCompatActivity implements ContactRecyclerVi
                 break;
             }
             case 102:{
-                deleteContact(item.getGroupId());
+                AlertDialog.Builder builder;
+                builder = new AlertDialog.Builder(this);
+                builder.setMessage("Do you want to delete this contact")
+                                .setCancelable(false)
+                                        .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                                            @Override
+                                            public void onClick(DialogInterface dialogInterface, int i) {
+                                                deleteContact(item.getGroupId());
+                                            }
+                                        }).setNegativeButton("Non", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialogInterface, int i) {
+                                dialogInterface.cancel();
+                            }
+                        });
+                //Creating dialog box
+                AlertDialog alert = builder.create();
+                //Setting the title manually
+                alert.setTitle("Delete Contact");
+                alert.show();
                 break;
             }
         }
