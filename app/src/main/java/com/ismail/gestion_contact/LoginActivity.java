@@ -1,6 +1,7 @@
 package com.ismail.gestion_contact;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
@@ -45,6 +46,9 @@ public class LoginActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+        ActionBar actionBar = getSupportActionBar();
+        actionBar.setTitle("Login");
+
         FirebaseApp.initializeApp(getApplicationContext());
         registerTextView = findViewById(R.id.registertextview);
         registerTextView.setOnClickListener(new View.OnClickListener() {

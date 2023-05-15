@@ -3,6 +3,7 @@ package com.ismail.gestion_contact;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.view.MenuItemCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -15,6 +16,7 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.SearchView;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -33,6 +35,7 @@ import com.ismail.gestion_contact.models.Contact;
 import org.checkerframework.checker.units.qual.C;
 
 import java.util.ArrayList;
+import java.util.Locale;
 
 public class MainActivity extends AppCompatActivity implements ContactRecyclerViewListener {
 
@@ -162,7 +165,66 @@ public class MainActivity extends AppCompatActivity implements ContactRecyclerVi
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater=getMenuInflater();
         inflater.inflate(R.menu.app_menu, menu);
+        MenuItem menuItem = menu.findItem(R.id.search);
+
+        SearchView searchView = (SearchView) MenuItemCompat.getActionView(menuItem);
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                searchData(query);
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                return false;
+            }
+        });
+
         return super.onCreateOptionsMenu(menu);
+    }
+
+    private void searchData(String query) {
+        pd.setTitle("Searching ....");
+        pd.show();
+
+        db.collection("Contacts").whereEqualTo("name",query.toLowerCase())
+                .get()
+                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                        pd.dismiss();
+                        models.clear();
+                        for(DocumentSnapshot doc : task.getResult()){
+                            Contact contact = new Contact(
+                                    doc.getString("name"),
+                                    doc.getString("service"), "",
+                                    doc.getString("email"),
+                                    doc.getString("phone"),doc.getId()
+                            );
+                            models.add(contact);
+                        }
+                        adapter=  new MyRecyclerViewAdapter(models, getApplicationContext(), new ContactRecyclerViewListener() {
+                            @Override
+                            public void onItemClick(int position) {
+                                DialogFragment dialogFragment=new DialogFragment();
+                                Bundle bundle = new Bundle();
+                                bundle.putString("name",models.get(position).getName());
+                                bundle.putString("service",models.get(position).getService());
+
+                                dialogFragment.setArguments(bundle);
+                                dialogFragment.show(getSupportFragmentManager(),"My  Fragment");
+                            }
+                        });
+                        recyclerView.setAdapter(adapter);
+                    }
+                }).addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        pd.dismiss();
+                        Toast.makeText(MainActivity.this, "error in search", Toast.LENGTH_SHORT).show();
+                    }
+                });
     }
 
     @Override
@@ -218,8 +280,7 @@ public class MainActivity extends AppCompatActivity implements ContactRecyclerVi
                         Toast.makeText(MainActivity.this, "Delete success", Toast.LENGTH_SHORT).show();
                         models.remove(index);
                         adapter.notifyItemRemoved(index);
-                        adapter.notifyDataSetChanged();
-                        //showData();
+
                     }
                 }).addOnFailureListener(new OnFailureListener() {
                     @Override

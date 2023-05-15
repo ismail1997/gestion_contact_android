@@ -1,6 +1,7 @@
 package com.ismail.gestion_contact;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
@@ -42,7 +43,8 @@ public class RegisterActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
-
+        ActionBar actionBar = getSupportActionBar();
+        actionBar.setTitle("Register");
         emailEditText=findViewById(R.id.editTextTextEmailAddressRegister);
         passwordEditText=findViewById(R.id.editTextTextPasswordRegister);
         registerButton=findViewById(R.id.registerButton);
