@@ -1,6 +1,7 @@
 package com.ismail.gestion_contact.adapters;
 
 import android.content.Context;
+import android.net.Uri;
 import android.view.ContextMenu;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,6 +12,12 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
 import com.ismail.gestion_contact.R;
 import com.ismail.gestion_contact.listners.ContactRecyclerViewListener;
 import com.ismail.gestion_contact.models.Contact;
@@ -40,6 +47,31 @@ public class MyRecyclerViewAdapter extends RecyclerView.Adapter<MyRecyclerViewAd
     public void onBindViewHolder(@NonNull MyRecyclerViewAdapter.ContactHolder holder, int position) {
         holder.contactNameView.setText(contacts.get(position).getName());
         holder.lastMessageView.setText(contacts.get(position).getService());
+
+        FirebaseStorage mStorage = FirebaseStorage.getInstance();
+        StorageReference storageRef = mStorage.getReference().child("images/"+contacts.get(position).getId());
+        storageRef.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+            @Override
+            public void onSuccess(Uri uri) {
+                Glide.with(context)
+                        .load(uri)
+                        .fitCenter()
+                        .diskCacheStrategy(DiskCacheStrategy.ALL)         //ALL or NONE as your requirement
+                        .thumbnail(Glide.with(context).load(R.drawable.man))
+                        .error(R.drawable.man)
+                        .into(holder.imageView);
+            }
+        }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception exception) {
+                // Handle any errors
+                Glide.with(context)
+                        .load(R.drawable.man)
+                        .fitCenter()
+                        .into(holder.imageView);
+            }
+        });
+
     }
 
     @Override

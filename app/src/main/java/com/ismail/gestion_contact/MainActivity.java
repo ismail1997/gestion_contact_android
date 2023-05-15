@@ -130,7 +130,9 @@ public class MainActivity extends AppCompatActivity implements ContactRecyclerVi
                                 Bundle bundle = new Bundle();
                                 bundle.putString("name",models.get(position).getName());
                                 bundle.putString("service",models.get(position).getService());
-
+                                bundle.putString("email",models.get(position).getEmail());
+                                bundle.putString("id",models.get(position).getId());
+                                bundle.putString("phone",models.get(position).getPhone());
                                 dialogFragment.setArguments(bundle);
                                 dialogFragment.show(getSupportFragmentManager(),"My  Fragment");
                             }
