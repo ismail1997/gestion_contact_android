@@ -91,7 +91,7 @@ public class AddContactActivity extends AppCompatActivity {
                 String phone = phoneEditText.getText().toString();
                 String service=serviceEditText.getText().toString();
 
-                uploadData(name,email,phone,service);
+                uploadData(name.trim(),email.trim(),phone.trim(),service.trim());
             }
         });
 

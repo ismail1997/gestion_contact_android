@@ -199,7 +199,7 @@ public class MainActivity extends AppCompatActivity implements ContactRecyclerVi
     private void searchData(String query) {
         pd.setTitle("Searching ....");
         pd.show();
-
+        Log.d("Search Keyword",query.toLowerCase().trim());
         db.collection("Contacts").whereEqualTo("name",query.toLowerCase().trim())
                 .get()
                 .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
