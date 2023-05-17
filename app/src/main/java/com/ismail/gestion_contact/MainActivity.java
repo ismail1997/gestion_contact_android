@@ -200,7 +200,7 @@ public class MainActivity extends AppCompatActivity implements ContactRecyclerVi
         pd.setTitle("Searching ....");
         pd.show();
 
-        db.collection("Contacts").whereEqualTo("name",query.toLowerCase())
+        db.collection("Contacts").whereEqualTo("name",query.toLowerCase().trim())
                 .get()
                 .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                     @Override
