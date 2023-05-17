@@ -74,25 +74,19 @@ public class AddContactActivity extends AppCompatActivity {
 
 
         addContactButton=findViewById(R.id.add_contact_button);
-        changeImageTextView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent photoPickerIntent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
-                startActivityForResult(photoPickerIntent,3);
-            }
+        changeImageTextView.setOnClickListener(view -> {
+            Intent photoPickerIntent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+            startActivityForResult(photoPickerIntent,3);
         });
 
 
-        addContactButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                String name = nameEditText.getText().toString();
-                String email = emailEditText.getText().toString();
-                String phone = phoneEditText.getText().toString();
-                String service=serviceEditText.getText().toString();
+        addContactButton.setOnClickListener(view -> {
+            String name = nameEditText.getText().toString();
+            String email = emailEditText.getText().toString();
+            String phone = phoneEditText.getText().toString();
+            String service=serviceEditText.getText().toString();
 
-                uploadData(name.trim(),email.trim(),phone.trim(),service.trim());
-            }
+            uploadData(name.trim(),email.trim(),phone.trim(),service.trim());
         });
 
     }
@@ -109,21 +103,15 @@ public class AddContactActivity extends AppCompatActivity {
         doc.put("service",service);
 
         fireStore.collection("Contacts").document(id).set(doc)
-                .addOnCompleteListener(new OnCompleteListener<Void>() {
-                    @Override
-                    public void onComplete(@NonNull Task<Void> task) {
-                        progressDialog.dismiss();
-                        uploadImage(id);
-                        Toast.makeText(AddContactActivity.this, "Data is added to firebase success", Toast.LENGTH_SHORT).show();
-                        Intent intent = new Intent(AddContactActivity.this,MainActivity.class);
-                        startActivity(intent);
-                    }
-                }).addOnFailureListener(new OnFailureListener() {
-                    @Override
-                    public void onFailure(@NonNull Exception e) {
-                        progressDialog.dismiss();
-                        Toast.makeText(AddContactActivity.this, "Data is failed to added to firebase success", Toast.LENGTH_SHORT).show();
-                    }
+                .addOnCompleteListener(task -> {
+                    progressDialog.dismiss();
+                    uploadImage(id);
+                    Toast.makeText(AddContactActivity.this, "Data is added to firebase success", Toast.LENGTH_SHORT).show();
+                    Intent intent = new Intent(AddContactActivity.this,MainActivity.class);
+                    startActivity(intent);
+                }).addOnFailureListener(e -> {
+                    progressDialog.dismiss();
+                    Toast.makeText(AddContactActivity.this, "Data is failed to added to firebase success", Toast.LENGTH_SHORT).show();
                 });
 
 
@@ -160,50 +148,34 @@ public class AddContactActivity extends AppCompatActivity {
             // adding listeners on upload
             // or failure of image
             Log.d("images",filePath.toString());
+            // Progress Listener for loading
+// percentage on the dialog box
             ref.putFile(filePath)
                     .addOnSuccessListener(
-                            new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                            taskSnapshot -> {
 
-                                @Override
-                                public void onSuccess(
-                                        UploadTask.TaskSnapshot taskSnapshot)
-                                {
+                                // Image uploaded successfully
+                                // Dismiss dialog
 
-                                    // Image uploaded successfully
-                                    // Dismiss dialog
+                                progressDialog.dismiss();
+                            }).addOnFailureListener(e -> {
 
-                                    progressDialog.dismiss();
-                                }
-                            }).addOnFailureListener(new OnFailureListener() {
-                        @Override
-                        public void onFailure(@NonNull Exception e)
-                        {
-
-                            // Error, Image not uploaded
-                            progressDialog.dismiss();
-                            Toast
-                                    .makeText(AddContactActivity.this,
-                                            "Failed " + e.getMessage(),
-                                            Toast.LENGTH_SHORT)
-                                    .show();
-                        }
-                    }).addOnProgressListener(
-                            new OnProgressListener<UploadTask.TaskSnapshot>() {
-
-                                // Progress Listener for loading
-                                // percentage on the dialog box
-                                @Override
-                                public void onProgress(
-                                        UploadTask.TaskSnapshot taskSnapshot)
-                                {
-                                    double progress
-                                            = (100.0
-                                            * taskSnapshot.getBytesTransferred()
-                                            / taskSnapshot.getTotalByteCount());
-                                    progressDialog.setMessage(
-                                            "Uploaded "
-                                                    + (int)progress + "%");
-                                }
+                                // Error, Image not uploaded
+                                progressDialog.dismiss();
+                                Toast
+                                        .makeText(AddContactActivity.this,
+                                                "Failed " + e.getMessage(),
+                                                Toast.LENGTH_SHORT)
+                                        .show();
+                            }).addOnProgressListener(
+                            taskSnapshot -> {
+                                double progress
+                                        = (100.0
+                                        * taskSnapshot.getBytesTransferred()
+                                        / taskSnapshot.getTotalByteCount());
+                                progressDialog.setMessage(
+                                        "Uploaded "
+                                                + (int)progress + "%");
                             });
         }
     }
