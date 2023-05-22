@@ -28,22 +28,30 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/imageView2">
 
-        <TextView
-            android:id="@+id/textView"
-            android:layout_width="40dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="Email : "
-            android:textAppearance="@style/TextAppearance.AppCompat.Body2" />
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/txtUsername"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            android:layout_width="match_parent"
+            android:layout_height="63dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="20dp"
+            android:hint="Email"
+            android:textColorHint="#A7A7A7"
+            app:boxStrokeColor="#EAEAEE">
 
-        <EditText
-            android:id="@+id/editTextTextEmailAddressRegister"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:autofillHints="Email"
-            android:ems="10"
-            android:inputType="textEmailAddress" />
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/editTextTextEmailAddressRegister"
+                android:layout_width="match_parent"
+                android:layout_height="55dp"
+                android:textColor="#5B5B5B"
+                android:textSize="15sp"
+                android:textStyle="bold"
+                android:maxLines="1"
+                android:singleLine="true"
+                tools:ignore="TouchTargetSizeCheck" />
+
+        </com.google.android.material.textfield.TextInputLayout>
     </LinearLayout>
 
     <LinearLayout
@@ -58,33 +66,42 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/linearLayout">
 
-        <TextView
-            android:id="@+id/textView7"
-            android:layout_width="40dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="Password :"
-            android:textAppearance="@style/TextAppearance.AppCompat.Body2" />
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/password"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            android:layout_width="match_parent"
+            android:layout_height="63dp"
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="20dp"
+            android:hint="Password"
+            android:layout_marginTop="10dp"
+            android:textColorHint="#A7A7A7"
+            app:endIconMode="password_toggle"
+            app:boxStrokeColor="#EAEAEE">
 
-        <EditText
-            android:id="@+id/editTextTextPasswordRegister"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:autofillHints="password"
-            android:ems="10"
-            android:inputType="textPassword" />
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/editTextTextPasswordRegister"
+                android:layout_width="match_parent"
+                android:layout_height="55dp"
+                android:textColor="#5B5B5B"
+                android:textSize="15sp"
+                android:textStyle="bold"
+                android:maxLines="1"
+                android:singleLine="true"
+                tools:ignore="TouchTargetSizeCheck" />
+        </com.google.android.material.textfield.TextInputLayout>
     </LinearLayout>
 
     <Button
         android:id="@+id/registerButton"
-        android:layout_width="wrap_content"
+        android:layout_width="300dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="52dp"
+        android:layout_marginTop="30dp"
         android:text="Register"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/linearLayout2" />
+
 
     <ProgressBar
         android:id="@+id/progressBar2"
