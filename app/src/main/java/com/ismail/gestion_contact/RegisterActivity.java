@@ -65,11 +65,13 @@ public class RegisterActivity extends AppCompatActivity {
                 password= passwordEditText.getText().toString();
 
                 if(TextUtils.isEmpty(email)){
-                    Toast.makeText(RegisterActivity.this,"Email is empty",Toast.LENGTH_SHORT);
+                    Toast.makeText(RegisterActivity.this,"Email is empty",Toast.LENGTH_SHORT).show();
+                    progressBar.setVisibility(View.GONE);
                     return;
                 }
                 if(TextUtils.isEmpty(password)){
-                    Toast.makeText(RegisterActivity.this,"Password is empty",Toast.LENGTH_SHORT);
+                    Toast.makeText(RegisterActivity.this,"Password is empty",Toast.LENGTH_SHORT).show();
+                    progressBar.setVisibility(View.GONE);
                     return;
                 }
 
